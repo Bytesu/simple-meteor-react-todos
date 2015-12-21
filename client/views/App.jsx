@@ -3,12 +3,12 @@ App = React.createClass({
   mixins:[ReactMeteorData],
   getMeteorData(){
      let query = {};
- 
+
     if (this.state.hideCompleted) {
       // If hide completed is checked, filter tasks
       query = {checked: {$ne: true}};
     }
- 
+
     return {
       tasks: Tasks.find(query, {sort: {createdAt: -1}}).fetch(),
       incompleteCount: Tasks.find({checked: {$ne: true}}).count()
@@ -24,8 +24,8 @@ App = React.createClass({
       hideCompleted: ! this.state.hideCompleted
     });
   },
- 
-  
+
+
   renderTasks() {
     return this.data.tasks.map((task) => {
       return <Task key={task._id} task={task} />;
@@ -33,15 +33,15 @@ App = React.createClass({
   },
  handleSubmit(event) {
     event.preventDefault();
- 
+
     // Find the text field via the React ref
     var text = React.findDOMNode(this.refs.textInput).value.trim();
- 
+
     Tasks.insert({
       text: text,
       createdAt: new Date() // current time
     });
- 
+
     // Clear form
     React.findDOMNode(this.refs.textInput).value = "";
   },
@@ -65,7 +65,7 @@ App = React.createClass({
               placeholder="Type to add new tasks" />
           </form>
         </header>
-          
+
         <ul>
           {this.renderTasks()}
         </ul>

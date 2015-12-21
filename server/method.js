@@ -1,0 +1,4 @@
+//server
+if(Meteor.isServer){
+
+}
